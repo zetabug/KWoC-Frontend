@@ -7,6 +7,7 @@ import snowflake_particle2 from "../assets/snowflake2.svg"
 import snowflake_particle3 from "../assets/snowflake3.svg"
 import snowflake_particle4 from "../assets/snowflake4.svg"
 import Particle from "../components/Particle";
+import Timeline from "../components/Timeline";
 
 
 const snowflake = document.createElement('img')
@@ -50,6 +51,7 @@ function Home() {
       <section className="backdrop-blur-sm bg-black/80 py-64 clip-path-polygonDesign">
         <About />
         <WhyKwoc />
+        <Timeline />
       </section>
       <Particle />
     </>
