@@ -34,24 +34,49 @@ async function makeBackendRequest(
 	}
 }
 
-export interface IOAuthResponse {
-	email: string;
-	is_new_user: boolean;
-	jwt: string;
-	name: string;
-	type: 'student' | 'mentor';
-	username: string;
+export type UserType = 'mentor' | 'student';
+
+interface IUnauthEndpointTypes {
+	'/oauth/': {
+		request: {
+			code: string,
+			type: UserType
+		},
+		response: {
+			email: string;
+			is_new_user: boolean;
+			jwt: string;
+			name: string;
+			type: UserType;
+			username: string;
+		}
+	}
 }
-export async function makeOAuthRequest(
-	code: string,
-	type: 'mentor' | 'student'
-): Promise<IErrorResponse | IOAuthResponse> {
+
+export async function makePostRequest
+<E extends keyof IUnauthEndpointTypes>
+(endpoint: E, params: IUnauthEndpointTypes[E]['request']):
+Promise<IUnauthEndpointTypes[E]['response'] | IErrorResponse> {
 	const response = await makeBackendRequest(
-		'oauth',
+		endpoint,
 		'post',
 		null,
-		{code, type},
+		params,
 	)
 
-	return await response.json() as IOAuthResponse | IErrorResponse;
+	return await response.json() as IUnauthEndpointTypes[E]['response'] | IErrorResponse;
+}
+
+export async function makeGetRequest
+<E extends keyof IUnauthEndpointTypes>
+(endpoint: E):
+Promise<IUnauthEndpointTypes[E]['response'] | IErrorResponse> {
+	const response = await makeBackendRequest(
+		endpoint,
+		'get',
+		null,
+		null
+	)
+
+	return await response.json() as IUnauthEndpointTypes[E]['response'] | IErrorResponse;
 }
