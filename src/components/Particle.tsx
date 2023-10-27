@@ -151,7 +151,7 @@ export default function Particle(){
                       }
                     }
                   },
-                fpsLimit: 60, 
+                fpsLimit: 10, 
                 particles: { 
                   shape: { 
                     type: "circle", 
