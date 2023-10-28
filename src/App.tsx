@@ -3,13 +3,13 @@ import FAQ from './pages/FAQ';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
 import Testimonials from './pages/Testimonials';
-import Navbar from './components/Navbar'
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <div className="App">      
       <BrowserRouter>
-      <Navbar />
+        <Navbar />
         <Routes>
           <Route index element={<Home />} />
           <Route path="projects" element={<Projects />} />
